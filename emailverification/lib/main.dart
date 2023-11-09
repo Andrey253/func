@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:dart_appwrite/dart_appwrite.dart' as dart_appwrite;
 import 'package:dart_appwrite/models.dart' as models;
+import 'package:starter_template/body.dart';
+import 'package:starter_template/html.dart';
 
 import 'style.dart';
 
@@ -37,26 +39,21 @@ Future<dynamic> main(final context) async {
   //     'query ${json.encode(context.req.query)} runtimeType '); // Parsed query params. For example, req.query.limit
 
   final token = await accountverfication(context.req.query, context);
-  final html = '''<!DOCTYPE html>
-<html><head><meta charset="utf-8"><title>Подтверждение регистрации</title></head>
-<body> <style> $style</style>
-${token == null ? ''' <a href="#" class="button17" tabindex="0" onclick="window.top.close();">
- Ошибка верификации. Закрыть окно.</a>''' : '''
-<a href="https://andrey253.github.io" class="button17" tabindex="0">Верификация прошла успешно</a>
-'''} </body></html>''';
-  return context.res.send(html, 200, {'content-type': 'text/html'});
-}
 
+  final document = html
+    ..replaceAll('{body}', body(token))
+    ..replaceAll('{style}', style);
+  return context.res.send(document, 200, {'content-type': 'text/html'});
+}
 
 Future<models.Token?> accountverfication(
     Map<String, String> queryParameters, final context) async {
 // Why not try the Appwrite SDK?
-  final client =dart_appwrite. Client()
+  final client = dart_appwrite.Client()
       .setEndpoint('https://allmarket.space/v1')
       .setProject(Platform.environment['APPWRITE_FUNCTION_PROJECT_ID'])
       .setSelfSigned();
-  dart_appwrite.Account account =dart_appwrite. Account(client);
-
+  dart_appwrite.Account account = dart_appwrite.Account(client);
 
   try {
     return await account.updateVerification(
