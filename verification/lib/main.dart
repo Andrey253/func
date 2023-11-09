@@ -3,9 +3,11 @@ import 'dart:io';
 
 import 'package:dart_appwrite/dart_appwrite.dart' as dart_appwrite;
 import 'package:dart_appwrite/models.dart' as models;
-import 'package:starter_template/body.dart';
+import 'package:starter_template/body_email.dart';
+import 'package:starter_template/body_form.dart';
 import 'package:starter_template/html.dart';
 
+import 'body_virification.dart';
 import 'style.dart';
 
 // This is your Appwrite function
@@ -39,22 +41,37 @@ Future<dynamic> main(final context) async {
   //     'query ${json.encode(context.req.query)} runtimeType '); // Parsed query params. For example, req.query.limit
 
   models.Token? token;
-  // final token = await accountverfication(context.req.query, context);
+  String document = '';
 
-  final document = html
-      .replaceAll('{body}', body(token))
-      .replaceAll('{style}', style)
-      .replaceAll('{h1}', 'query ${context.req.query}');
-  try {
-    return context.res.send(document, 200, {'content-type': 'text/html'});
-  } on Exception catch (e) {
-    return context.res.send('Error');
+  if (context.req.query['type'] == 'accountverfication') {
+    token = await accountverfication(context.req.query, context);
+    document = html
+        .replaceAll('{body}', accountverficationbody(token))
+        .replaceAll('{style}', style)
+        .replaceAll('{h1}', '');
+    try {
+      return context.res.send(document, 200, {'content-type': 'text/html'});
+    } on Exception catch (e) {
+      return context.res.send('Error');
+    }
+  } else if (context.req.query['type'] == 'recovery') {
+    token = await recovery(context.req.query, context);
+    document = html
+        .replaceAll('{body}', recoverybody(token))
+        .replaceAll('{style}', style)
+        .replaceAll('{h1}', '');
+    try {
+      return context.res.send(document, 200, {'content-type': 'text/html'});
+    } on Exception catch (e) {
+      return context.res.send('Error');
+    }
+  } else {
+    return context.res.send(form, 200, {'content-type': 'text/html'});
   }
 }
 
 Future<models.Token?> accountverfication(
     Map<String, String> queryParameters, final context) async {
-// Why not try the Appwrite SDK?
   final client = dart_appwrite.Client()
       .setEndpoint('https://allmarket.space/v1')
       .setProject(Platform.environment['APPWRITE_FUNCTION_PROJECT_ID'])
@@ -72,16 +89,19 @@ Future<models.Token?> accountverfication(
   }
 }
 
-Future<models.Token?> verificationOrRecovery(
+Future<models.Token?> recovery(
     Map<String, String> queryParameters, final context) async {
   try {
-    if (queryParameters['userId'] != null &&
-        queryParameters['secret'] != null &&
-        queryParameters['type'] == 'accountverfication') {
-      print('teg _queryParameters $queryParameters');
-
-      return await accountverfication(queryParameters, context);
-    }
+    final client = dart_appwrite.Client()
+        .setEndpoint('https://allmarket.space/v1')
+        .setProject(Platform.environment['APPWRITE_FUNCTION_PROJECT_ID'])
+        .setSelfSigned();
+    dart_appwrite.Account account = dart_appwrite.Account(client);
+    await account.updateRecovery(
+        userId: queryParameters['userId']!,
+        secret: queryParameters['secret']!,
+        password: '12345678',
+        passwordAgain: '12345678');
   } on dart_appwrite.AppwriteException catch (e) {
     return null;
   }
