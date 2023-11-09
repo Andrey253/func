@@ -38,7 +38,7 @@ Future<dynamic> main(final context) async {
   final token = await accountverfication(context.req.query, context);
   final html = '''<!DOCTYPE html>
 <html><head><meta charset="utf-8"><title>Подтверждение регистрации</title></head>
-<body> $style
+<body> <style> $style</style>
 ${token == null ? ''' <a href="#" class="button17" tabindex="0" onclick="window.top.close();">
  Ошибка верификации. Закрыть окно.</a>''' : '''
 <a href="https://andrey253.github.io" class="button17" tabindex="0">Верификация прошла успешно</a>
