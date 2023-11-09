@@ -42,9 +42,7 @@ Future<dynamic> main(final context) async {
   context.log('body ${context.req.body}');
   context.log('body runtimeType ${context.req.body.runtimeType.toString()}');
   context.log('method ${context.req.method}');
-  if (context.req.method == "POST") {
-    return context.res.send('POST ${context.req.body}');
-  }
+
   models.Token? token;
   String document = '';
 
