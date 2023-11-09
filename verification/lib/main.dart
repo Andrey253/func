@@ -66,7 +66,7 @@ Future<dynamic> main(final context) async {
       return context.res.send('Error');
     }
   } else {
-    return context.res.send(form, 200, {'content-type': 'text/html'});
+    return context.res.send(htmlForm, 200, {'content-type': 'text/html'});
   }
 }
 
