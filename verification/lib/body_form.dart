@@ -20,19 +20,22 @@ String form = '''<!doctype html>
 </head>
 
 <body> <style>
-     $STYLEfORM
+     $styleForm
     </style>
     <div class="card">
         <p class="lock-icon"><i class="fa fa-lock"></i></p>
         <h2>Forgot Password?</h2>
         <p>You can reset your Password here</p>
+        <form action="" method="post" name="signup">
         <input type="text" class="passInput" placeholder="Email address">
+        <input type="submin" name="signup" value="Восстановить">
         <button>Send My Password</button>
+            </form>
     </div>
 </body>
 
 </html>''';
-String STYLEfORM = '''* {
+String styleForm = '''* {
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif;
