@@ -35,11 +35,13 @@ Future<dynamic> main(final context) async {
   // context.log(
   //     'query ${json.encode(context.req.query)} runtimeType '); // Parsed query params. For example, req.query.limit
   File file = File("lib/style.css");
+  
   var style = await file.readAsString();
+  var style2 = '''$style''';
   final token = await accountverfication(context.req.query, context);
   final html = '''<!DOCTYPE html>
 <html><head><meta charset="utf-8"><title>Подтверждение регистрации</title></head>
-<body> <style> $style</style>
+<body> <style> $style2</style>
 ${token == null ? ''' <a href="#" class="button17" tabindex="0" onclick="window.top.close();">
  Ошибка верификации. Закрыть окно.</a>''' : '''
 <a href="https://andrey253.github.io" class="button17" tabindex="0">Верификация прошла успешно</a>
