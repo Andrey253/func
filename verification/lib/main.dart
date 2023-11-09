@@ -38,7 +38,8 @@ Future<dynamic> main(final context) async {
   // context.log(
   //     'query ${json.encode(context.req.query)} runtimeType '); // Parsed query params. For example, req.query.limit
 
-  final token = await accountverfication(context.req.query, context);
+  models.Token? token;
+  // final token = await accountverfication(context.req.query, context);
 
   final document = html
       .replaceAll('{body}', body(token))
