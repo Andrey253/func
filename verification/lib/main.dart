@@ -39,7 +39,9 @@ Future<dynamic> main(final context) async {
   //     'queryString ${context.req.queryString} runtimeType ${context.req.queryString.runtimeType.toString()}'); // Raw query params string. For example "limit=12&offset=50"
   // context.log(
   //     'query ${json.encode(context.req.query)} runtimeType '); // Parsed query params. For example, req.query.limit
-
+if(context.req.scheme=="POST"){
+   return context.res.send('POST ${context.req.body}');
+}
   models.Token? token;
   String document = '';
 
