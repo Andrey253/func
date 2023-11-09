@@ -1,34 +1,89 @@
 import 'dart:async';
-import 'package:dart_appwrite/dart_appwrite.dart';
+import 'dart:io';
+
+import 'package:dart_appwrite/dart_appwrite.dart' as dart_appwrite;
+import 'package:dart_appwrite/models.dart' as models;
+import 'package:starter_template/body.dart';
+import 'package:starter_template/html.dart';
+
+import 'style.dart';
 
 // This is your Appwrite function
 // It's executed each time we get a request
 Future<dynamic> main(final context) async {
+  // context.log(
+  //     'bodyRaw ${context.req.bodyRaw}'); // Raw request body, contains request data
+  // context.log(
+  //     'body ${context.req.body}'); // Object from parsed JSON request body, otherwise string
+  // context.log('headers---------------------');  // String key-value pairs of all request headers, keys are lowercase
+  // (context.req.headers as Map).forEach((key, value) {
+
+  //   context.log(key + ': ' + value);
+  // });
+  // context.log('-----------------------');
+  // context.log(
+  //     'scheme ${context.req.scheme}'); // Value of the x-forwarded-proto header, usually http or https
+
+  // context.log(
+  //     'url ${context.req.url}'); // Full URL, for example: http://awesome.appwrite.io:8000/v1/hooks?limit=12&offset=50
+
+  // context.log(
+  //     'host ${context.req.host}'); // Hostname from the host header, such as awesome.appwrite.io
+  // context.log(
+  //     'port ${context.req.port}'); // Port from the host header, for example 8000
+  // context.log('path');
+  // context.log(context.req.path); // Path part of URL, for example /v1/hooks
+  // context.log(
+  //     'queryString ${context.req.queryString} runtimeType ${context.req.queryString.runtimeType.toString()}'); // Raw query params string. For example "limit=12&offset=50"
+  // context.log(
+  //     'query ${json.encode(context.req.query)} runtimeType '); // Parsed query params. For example, req.query.limit
+
+  final token = await accountverfication(context.req.query, context);
+
+  final document = html
+      .replaceAll('{body}', body(token))
+      .replaceAll('{style}', style)
+      .replaceAll('{h1}', 'query ${context.req.query}');
+  try {
+    return context.res.send(document, 200, {'content-type': 'text/html'});
+  } on Exception catch (e) {
+    return context.res.send('Error');
+  }
+}
+
+Future<models.Token?> accountverfication(
+    Map<String, String> queryParameters, final context) async {
 // Why not try the Appwrite SDK?
-  //
-  // final client = Client()
-  //    .setEndpoint('https://cloud.appwrite.io/v1')
-  //    .setProject(process.env.APPWRITE_FUNCTION_PROJECT_ID)
-  //    .setKey(process.env.APPWRITE_API_KEY);
+  final client = dart_appwrite.Client()
+      .setEndpoint('https://allmarket.space/v1')
+      .setProject(Platform.environment['APPWRITE_FUNCTION_PROJECT_ID'])
+      .setSelfSigned();
+  dart_appwrite.Account account = dart_appwrite.Account(client);
 
-  // You can log messages to the console
-  context.log('Hello, Logs!');
+  try {
+    return await account.updateVerification(
+      userId: queryParameters['userId'] ?? '',
+      secret: queryParameters['secret'] ?? '',
+    );
+  } on Exception catch (e) {
+    context.log('updateVerification $e');
+    return null;
+  }
+}
 
-  // If something goes wrong, log an error
-  context.error('Hello, Errors!');
+Future<models.Token?> verificationOrRecovery(
+    Map<String, String> queryParameters, final context) async {
+  try {
+    if (queryParameters['userId'] != null &&
+        queryParameters['secret'] != null &&
+        queryParameters['type'] == 'accountverfication') {
+      print('teg _queryParameters $queryParameters');
 
-  // The `req` object contains the request data
-  if (context.req.method == 'GET') {
-    // Send a response with the res object helpers
-    // `res.send()` dispatches a string back to the client
-    return context.res.send('Hello, World!');
+      return await accountverfication(queryParameters, context);
+    }
+  } on dart_appwrite.AppwriteException catch (e) {
+    return null;
   }
 
-  // `res.json()` is a handy helper for sending JSON
-  return context.res.json({
-    'motto': 'Build like a team of hundreds_',
-    'learn': 'https://appwrite.io/docs',
-    'connect': 'https://appwrite.io/discord',
-    'getInspired': 'https://builtwith.appwrite.io',
-  });
+  return null;
 }
