@@ -28,7 +28,7 @@ String form = '''<!doctype html>
         <p>You can reset your Password here</p>
         <form action="" method="post" name="signup">
         <input type="text" class="passInput" placeholder="Email address">
-        <input type="submin" name="signup" value="Восстановить">
+        <input type="submit" name="signup" value="Восстановить">
         <button>Send My Password</button>
             </form>
     </div>
