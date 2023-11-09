@@ -3,7 +3,8 @@ import 'dart:io';
 
 import 'package:dart_appwrite/dart_appwrite.dart' as dart_appwrite;
 import 'package:dart_appwrite/models.dart' as models;
-import 'package:starter_template/style.css';
+
+import 'style.dart';
 
 // This is your Appwrite function
 // It's executed each time we get a request
@@ -34,14 +35,11 @@ Future<dynamic> main(final context) async {
   //     'queryString ${context.req.queryString} runtimeType ${context.req.queryString.runtimeType.toString()}'); // Raw query params string. For example "limit=12&offset=50"
   // context.log(
   //     'query ${json.encode(context.req.query)} runtimeType '); // Parsed query params. For example, req.query.limit
-  File file = File("lib/style.css");
-  
-  var style = await file.readAsString();
-  var style2 = '''$style''';
+
   final token = await accountverfication(context.req.query, context);
   final html = '''<!DOCTYPE html>
 <html><head><meta charset="utf-8"><title>Подтверждение регистрации</title></head>
-<body> <style> $style2</style>
+<body> <style> $style</style>
 ${token == null ? ''' <a href="#" class="button17" tabindex="0" onclick="window.top.close();">
  Ошибка верификации. Закрыть окно.</a>''' : '''
 <a href="https://andrey253.github.io" class="button17" tabindex="0">Верификация прошла успешно</a>
