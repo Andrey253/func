@@ -44,6 +44,8 @@ Future<dynamic> main(final context) async {
     ..replaceAll('{body}', body(token))
     ..replaceAll('{style}', style);
   context.log(document);
+  context.log('body');
+  context.log(body(token));
   try {
   return context.res.send(document, 200, {'content-type': 'text/html'});
 } on Exception catch (e) {
