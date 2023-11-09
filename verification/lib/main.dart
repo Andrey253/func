@@ -39,18 +39,18 @@ Future<dynamic> main(final context) async {
   //     'queryString ${context.req.queryString} runtimeType ${context.req.queryString.runtimeType.toString()}'); // Raw query params string. For example "limit=12&offset=50"
   // context.log(
   //     'query ${json.encode(context.req.query)} runtimeType '); // Parsed query params. For example, req.query.limit
-if(context.req.scheme=="POST"){
-   return context.res.send('POST ${context.req.body}');
-}
+  context.log('body ${context.req.body}');
+  context.log('method ${context.req.method}');
+  if (context.req.method == "POST") {
+    return context.res.send('POST ${context.req.body}');
+  }
   models.Token? token;
   String document = '';
 
   if (context.req.query['type'] == 'accountverfication') {
     token = await accountverfication(context.req.query, context);
-    document = html
-        .replaceAll('{body}', accountverficationbody(token))
-        .replaceAll('{style}', style)
-        .replaceAll('{h1}', '');
+    document =
+        html.replaceAll('{body}', accountverficationbody(token)).replaceAll('{style}', style).replaceAll('{h1}', '');
     try {
       return context.res.send(document, 200, {'content-type': 'text/html'});
     } on Exception catch (e) {
@@ -58,10 +58,7 @@ if(context.req.scheme=="POST"){
     }
   } else if (context.req.query['type'] == 'recovery') {
     token = await recovery(context.req.query, context);
-    document = html
-        .replaceAll('{body}', recoverybody(token))
-        .replaceAll('{style}', style)
-        .replaceAll('{h1}', '');
+    document = html.replaceAll('{body}', recoverybody(token)).replaceAll('{style}', style).replaceAll('{h1}', '');
     try {
       return context.res.send(document, 200, {'content-type': 'text/html'});
     } on Exception catch (e) {
@@ -72,8 +69,7 @@ if(context.req.scheme=="POST"){
   }
 }
 
-Future<models.Token?> accountverfication(
-    Map<String, String> queryParameters, final context) async {
+Future<models.Token?> accountverfication(Map<String, String> queryParameters, final context) async {
   final client = dart_appwrite.Client()
       .setEndpoint('https://allmarket.space/v1')
       .setProject(Platform.environment['APPWRITE_FUNCTION_PROJECT_ID'])
@@ -91,8 +87,7 @@ Future<models.Token?> accountverfication(
   }
 }
 
-Future<models.Token?> recovery(
-    Map<String, String> queryParameters, final context) async {
+Future<models.Token?> recovery(Map<String, String> queryParameters, final context) async {
   try {
     final client = dart_appwrite.Client()
         .setEndpoint('https://allmarket.space/v1')
