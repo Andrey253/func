@@ -8,7 +8,7 @@ import 'package:starter_template/body_form.dart';
 import 'package:starter_template/html.dart';
 
 import 'body_virification.dart';
-import 'style.dart';
+
 
 // This is your Appwrite function
 // It's executed each time we get a request
@@ -50,7 +50,7 @@ Future<dynamic> main(final context) async {
   if (context.req.query['type'] == 'accountverfication') {
     token = await accountverfication(context.req.query, context);
     document =
-        html.replaceAll('{body}', accountverficationbody(token)).replaceAll('{style}', style).replaceAll('{h1}', '');
+        html.replaceAll('{body}', accountverficationbody(token)).replaceAll('{h1}', '');
     try {
       return context.res.send(document, 200, {'content-type': 'text/html'});
     } on Exception catch (e) {
@@ -58,7 +58,7 @@ Future<dynamic> main(final context) async {
     }
   } else if (context.req.query['type'] == 'recovery') {
     token = await recovery(context.req.query, context);
-    document = html.replaceAll('{body}', recoverybody(token)).replaceAll('{style}', style).replaceAll('{h1}', '');
+    document = html.replaceAll('{body}', recoverybody(token)).replaceAll('{h1}', '');
     try {
       return context.res.send(document, 200, {'content-type': 'text/html'});
     } on Exception catch (e) {
