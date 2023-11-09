@@ -41,8 +41,8 @@ Future<dynamic> main(final context) async {
   final token = await accountverfication(context.req.query, context);
 
   final document = html
-    ..replaceAll('''{body}''', body(token))
-    ..replaceAll('''{style}''', style);
+    ..replaceAll('{body}', body(token))
+    ..replaceAll('{style}', style);
   context.log(document);
   try {
   return context.res.send(document, 200, {'content-type': 'text/html'});
