@@ -10,6 +10,7 @@ const html = '''<!DOCTYPE html>
     <style>
       {style}
     </style>
+    <h1>{h1}</h1>
     {body}
   </body>
 </html>''';
