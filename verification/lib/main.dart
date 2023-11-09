@@ -8,7 +8,7 @@ import 'package:starter_template/body_form.dart';
 import 'package:starter_template/html.dart';
 
 import 'body_virification.dart';
-
+import 'style.dart';
 
 // This is your Appwrite function
 // It's executed each time we get a request
@@ -42,7 +42,7 @@ Future<dynamic> main(final context) async {
   context.log('body ${context.req.body}');
   context.log('body runtimeType ${context.req.body.runtimeType.toString()}');
   context.log('method ${context.req.method}');
-  context.log('Uri.splitQueryString(context.req.body)  ${Uri.splitQueryString(context.req.body)}');
+  context.log('Uri.splitQueryString(context.req.body) ${context.req.method}');
 
   models.Token? token;
   String document = '';

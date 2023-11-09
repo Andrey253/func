@@ -1,4 +1,4 @@
-* {
+String style ='''* {
   margin: 0;
   padding: 0;
   font-family: 'Poppins', sans-serif;
@@ -66,4 +66,4 @@ button {
   color: white;
   padding: 10px;
   text-transform: uppercase;
-}
+}''';
