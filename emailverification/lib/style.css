@@ -1,4 +1,4 @@
-const style = '''a.button17 {
+a.button17 {
   display: inline-block;
   font-family: arial,sans-serif;
   font-size: 11px;
@@ -33,4 +33,4 @@ a.button17:focus:not(:active) {
    0 1px rgb(83,94,104),
    0 0 1px rgb(86,96,106);
   pointer-events: none;
-}''';
+}
