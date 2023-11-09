@@ -1,8 +1,15 @@
 const html = '''<!DOCTYPE html>
-<html><head><meta charset="utf-8"><title>Подтверждение регистрации</title></head>
-<body>
-  <style>
-    {style}
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>
+        Подтверждение регистрации
+      </title>
+    </head>
+  <body>
+    <style>
+      {style}
     </style>
-  {body}
-</body></html>''';
+    {body}
+  </body>
+</html>''';
