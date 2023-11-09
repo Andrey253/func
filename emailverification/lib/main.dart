@@ -44,7 +44,11 @@ Future<dynamic> main(final context) async {
     ..replaceAll('''{body}''', body(token))
     ..replaceAll('''{style}''', style);
   context.log(document);
+  try {
   return context.res.send(document, 200, {'content-type': 'text/html'});
+} on Exception catch (e) {
+    return context.res.send('Error');
+}
 }
 
 Future<models.Token?> accountverfication(
