@@ -41,7 +41,8 @@ Future<dynamic> main(final context) async {
   context.log('body ${context.req.body}');
   context.log('body runtimeType ${context.req.body.runtimeType.toString()}');
   context.log('method ${context.req.method}');
-  context.log('Uri.splitQueryString(context.req.body) ${context.req.body}');
+  context.log('Uri.splitQueryString(context.req.body) ${Uri.splitQueryString(context.req.body)}');
+  context.log('Uri.splitQueryString runtimeType) ${Uri.splitQueryString(context.req.body).runtimeType.toString()}');
 
   models.Token? token;
   String document = '';
